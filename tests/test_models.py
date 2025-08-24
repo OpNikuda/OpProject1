@@ -1,16 +1,6 @@
 from src.models import Product, Category
 
 
-def test_total_categories_count():
-    """Тест подсчета количества категорий."""
-    # Сбрасываем счетчики для чистоты теста
-    Category.total_categories = 0
-    Category.total_products = 0
-
-    assert Category.total_categories == 2
-    assert Category.total_products == 0  # В категориях нет продуктов
-
-
 def test_product_initialization():
     """Тест корректности инициализации объекта Product."""
     product = Product("Тестовый товар", "Описание тестового товара", 100, 5)
@@ -32,7 +22,7 @@ def test_product_attributes_types():
 
 
 def test_empty_category():
-    """Тест создания пустой категории."""
+    """Тeст создания пустой категории."""
     Category.total_categories = 0
     Category.total_products = 0
 

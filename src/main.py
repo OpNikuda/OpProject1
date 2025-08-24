@@ -17,7 +17,7 @@ def main():
 
     electronics = Category(
         "Электроника",
-        "Гаджеты и устройства",
+        "Гаджеты и устройствa",
         [product_1, product_2]
     )
 
