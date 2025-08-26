@@ -3,7 +3,8 @@ class Product:
     Класс для представления товара.
     """
 
-    def __init__(self, name: str, description: str, price: float, quantity: int):
+    def __init__(self, name: str, description: str, price: float,
+                 quantity: int):
         """
         Конструктор класса Product.
 
@@ -22,11 +23,13 @@ class Product:
     def new_product(cls, product_data: dict, products_list: list = None):
         """
         Класс-метод для создания нового товара.
-        Проверяет наличие товара с таким же именем и объединяет при необходимости.
+        Проверяет наличие товара с таким же именем и объединяет при
+        необходимости.
 
         Args:
             product_data (dict): Словарь с данными товара.
-            products_list (list, optional): Список существующих товаров для проверки дубликатов.
+            products_list (list, optional): Список существующих товаров для
+                проверки дубликатов.
 
         Returns:
             Product: Новый или существующий товар.
@@ -72,7 +75,10 @@ class Product:
 
         # Подтверждение понижения цены
         if new_price < self.__price:
-            confirmation = input(f"Цена понижается с {self.__price} до {new_price}. Подтвердите (y/n): ")
+            confirmation = input(
+                f"Цена понижается с {self.__price} до {new_price}."
+                f" Подтвердите (y/n): "
+            )
             if confirmation.lower() != 'y':
                 print("Изменение цены отменено")
                 return
@@ -81,7 +87,8 @@ class Product:
 
     def __str__(self):
         """Строковое представление товара."""
-        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+        return (f"{self.name}, {self.price} руб. "
+                f"Остаток: {self.quantity} шт.")
 
 
 class Category:
@@ -159,4 +166,3 @@ class Category:
             int: Количество товаров в категории.
         """
         return len(self.__products)
-

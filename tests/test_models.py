@@ -96,10 +96,26 @@ def test_duplicate_product_handling():
 
 def test_products_property():
     """Тест геттера products."""
-    product1 = Product("Product1", "Desc1", 100.0, 5)
-    product2 = Product("Product2", "Desc2", 200.0, 3)
+    product1 = Product(
+        "Product1",
+        "Desc1",
+        100.0,
+        5
+    )
 
-    category = Category("Test", "Test", [product1, product2])
+    product2 = Product(
+        "Product2",
+        "Desc2",
+        200.0,
+        3
+    )
+
+    category = Category(
+        "Test",
+        "Test",
+        [product1, product2]
+    )
+
     products_list = category.products
 
     assert len(products_list) == 2
