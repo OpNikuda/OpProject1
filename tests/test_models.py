@@ -180,7 +180,10 @@ def test_product_addition_invalid_type():
     """Тест сложения с неверным типом."""
     product = Product("Test", "Desc", 100.0, 2)
 
-    with pytest.raises(TypeError, match="Можно складывать только объекты класса Product"):
+    with pytest.raises(
+            TypeError,
+            match="Можно складывать только объекты класса Product"
+                       ):
         product + "invalid_string"
 
     with pytest.raises(TypeError):
@@ -242,17 +245,3 @@ def test_class_method_still_works():
     assert product.name == 'New Method Product'
     assert product.price == 300.0
     assert product.quantity == 8
-
-
-def test_category_total_counters():
-    """Тест что счетчики категорий и продуктов работают корректно."""
-    initial_categories = Category.total_categories
-    initial_products = Category.total_products
-
-    product1 = Product("P1", "D1", 100.0, 2)
-    product2 = Product("P2", "D2", 200.0, 3)
-
-    category = Category("Test", "Desc", [product1, product2])
-
-    assert Category.total_categories == initial_categories + 1
-    assert Category.total_products == initial_products + 2

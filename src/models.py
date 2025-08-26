@@ -1,10 +1,7 @@
 class Product:
-    """
-    Класс для представления товара.
-    """
+    """Класс для представления товара."""
 
-    def __init__(self, name: str, description: str, price: float,
-                 quantity: int):
+    def __init__(self, name: str, description: str, price: float, quantity: int):
         """
         Конструктор класса Product.
 
@@ -23,8 +20,6 @@ class Product:
     def new_product(cls, product_data: dict, products_list: list = None):
         """
         Класс-метод для создания нового товара.
-        Проверяет наличие товара с таким же именем и объединяет при
-        необходимости.
 
         Args:
             product_data (dict): Словарь с данными товара.
@@ -87,8 +82,7 @@ class Product:
 
     def __str__(self):
         """Строковое представление товара."""
-        return (f"{self.name}, {self.price} руб. "
-                f"Остаток: {self.quantity} шт.")
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other):
         """
@@ -109,9 +103,7 @@ class Product:
 
 
 class Category:
-    """
-    Класс для представления категории товаров в интернет-магазине.
-    """
+    """Класс для представления категории товаров в интернет-магазине."""
 
     # Атрибуты класса
     total_categories = 0
@@ -195,11 +187,8 @@ class Category:
         return len(self.__products)
 
 
-# Дополнительный класс для итерации (по желанию)
 class CategoryIterator:
-    """
-    Итератор для перебора товаров в категории.
-    """
+    """Итератор для перебора товаров в категории."""
 
     def __init__(self, category):
         """
@@ -230,34 +219,3 @@ class CategoryIterator:
             self.index += 1
             return product
         raise StopIteration
-
-
-# Добавляем возможность итерации в класс Category
-Category.__iter__ = lambda self: CategoryIterator(self)
-
-if __name__ == '__main__':
-    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
-    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
-
-    print(str(product1))
-    print(str(product2))
-    print(str(product3))
-
-    category1 = Category(
-        "Смартфоны",
-        "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
-        [product1, product2, product3]
-    )
-
-    print(str(category1))
-    print(category1.products)
-
-    print(product1 + product2)
-    print(product1 + product3)
-    print(product2 + product3)
-
-    # Дополнительное: итерация по товарам
-    print("\nИтерация по товарам:")
-    for product in category1:
-        print(product)
