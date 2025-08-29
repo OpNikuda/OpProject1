@@ -95,11 +95,81 @@ class Product:
             float: Общая стоимость товаров.
 
         Raises:
-            TypeError: Если передан не объект класса Product.
+            TypeError: Если передан не объект класса Product или классы не
+                совпадают.
         """
         if not isinstance(other, Product):
             raise TypeError("Можно складывать только объекты класса Product")
+
+        if type(self) != type(other):
+            raise TypeError("Нельзя складывать товары разных классов")
+
         return (self.price * self.quantity) + (other.price * other.quantity)
+
+
+class Smartphone(Product):
+    """Класс для представления смартфона."""
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        efficiency: float,
+        model: str,
+        memory: int,
+        color: str
+    ):
+        """
+        Конструктор класса Smartphone.
+
+        Args:
+            name (str): Название смартфона.
+            description (str): Описание смартфона.
+            price (float): Цена смартфона.
+            quantity (int): Количество в наличии.
+            efficiency (float): Производительность.
+            model (str): Модель смартфона.
+            memory (int): Объем встроенной памяти.
+            color (str): Цвет смартфона.
+        """
+        super().__init__(name, description, price, quantity)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+
+class LawnGrass(Product):
+    """Класс для представления газонной травы."""
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        country: str,
+        germination_period: str,
+        color: str
+    ):
+        """
+        Конструктор класса LawnGrass.
+
+        Args:
+            name (str): Название травы.
+            description (str): Описание травы.
+            price (float): Цена травы.
+            quantity (int): Количество в наличии.
+            country (str): Страна-производитель.
+            germination_period (str): Срок прорастания.
+            color (str): Цвет травы.
+        """
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
 
 
 class Category:
@@ -109,7 +179,7 @@ class Category:
     total_categories = 0
     total_products = 0
 
-    def __init__(self, name: str, description: str, products: list):
+    def __init__(self, name: str, description: str, products: list = None):
         """
         Конструктор класса Category.
 
@@ -120,11 +190,11 @@ class Category:
         """
         self.name = name
         self.description = description
-        self.__products = products  # Приватный атрибут
+        self.__products = products if products else []
 
         # Обновляем атрибуты класса
         Category.total_categories += 1
-        Category.total_products += len(products)
+        Category.total_products += len(self.__products)
 
     def __str__(self):
         """
