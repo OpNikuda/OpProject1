@@ -109,8 +109,17 @@ class Product:
 class Smartphone(Product):
     """Класс для представления смартфона."""
 
-    def __init__(self, name: str, description: str, price: float, quantity: int,
-                 efficiency: float, model: str, memory: int, color: str):
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        efficiency: float,
+        model: str,
+        memory: int,
+        color: str
+    ):
         """
         Конструктор класса Smartphone.
 
@@ -134,8 +143,16 @@ class Smartphone(Product):
 class LawnGrass(Product):
     """Класс для представления газонной травы."""
 
-    def __init__(self, name: str, description: str, price: float, quantity: int,
-                 country: str, germination_period: str, color: str):
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        country: str,
+        germination_period: str,
+        color: str
+    ):
         """
         Конструктор класса LawnGrass.
 

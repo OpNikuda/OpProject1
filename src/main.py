@@ -1,5 +1,4 @@
-from models import Smartphone, LawnGrass, Category
-
+from models import Category, LawnGrass, Smartphone
 
 if __name__ == '__main__':
     smartphone1 = Smartphone("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5,
@@ -73,8 +72,7 @@ if __name__ == '__main__':
 
     print(category_smartphones.products)
 
-    # Исправлено: нужно вызывать свойство, а не просто обращаться к нему
-    print(f"Общее количество продуктов: {Category.total_products}")
+    print(Category.product_count)
 
     try:
         category_smartphones.add_product("Not a product")
