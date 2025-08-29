@@ -95,7 +95,8 @@ class Product:
             float: Общая стоимость товаров.
 
         Raises:
-            TypeError: Если передан не объект класса Product или классы не совпадают.
+            TypeError: Если передан не объект класса Product или классы не
+                совпадают.
         """
         if not isinstance(other, Product):
             raise TypeError("Можно складывать только объекты класса Product")
@@ -288,3 +289,4 @@ class CategoryIterator:
             self.index += 1
             return product
         raise StopIteration
+

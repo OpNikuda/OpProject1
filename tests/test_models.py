@@ -467,3 +467,4 @@ def test_category_iterator_with_subclasses():
     assert len(products) == 2
     assert isinstance(products[0], Smartphone)
     assert isinstance(products[1], LawnGrass)
+
