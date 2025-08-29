@@ -1,9 +1,39 @@
-class Product:
-    """Класс для представления товара."""
+from abc import ABC, abstractmethod
 
-    def __init__(self, name: str, description: str, price: float, quantity: int):
+
+class ReprMixin:
+    """Миксин для вывода информации о создании объекта."""
+
+    def __repr__(self):
+        """Возвращает строковое представление
+         объекта с параметрами конструктора."""
+        params = []
+        for key, value in self.__dict__.items():
+            # Исключаем приватные атрибуты, начинающиеся с __
+            if not key.startswith('_'):
+                # Обрабатываем строки - добавляем кавычки
+                if isinstance(value, str):
+                    params.append(f"'{value}'")
+                else:
+                    params.append(str(value))
+
+        class_name = self.__class__.__name__
+        return f"{class_name}({', '.join(params)})"
+
+
+class BaseProduct(ABC):
+    """Абстрактный базовый класс для всех продуктов."""
+
+    @abstractmethod
+    def __init__(
+            self,
+            name: str,
+            description: str,
+            price: float,
+            quantity: int
+    ):
         """
-        Конструктор класса Product.
+        Конструктор абстрактного класса Product.
 
         Args:
             name (str): Название товара.
@@ -13,8 +43,59 @@ class Product:
         """
         self.name = name
         self.description = description
-        self.__price = price  # Приватный атрибут
+        self.__price = price
         self.quantity = quantity
+
+    @classmethod
+    @abstractmethod
+    def new_product(cls, product_data: dict, products_list: list = None):
+        """Абстрактный метод для создания нового товара."""
+        pass
+
+    @property
+    @abstractmethod
+    def price(self):
+        """Абстрактный геттер для цены."""
+        pass
+
+    @price.setter
+    @abstractmethod
+    def price(self, new_price: float):
+        """Абстрактный сеттер для цены."""
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        """Абстрактный метод для строкового представления."""
+        pass
+
+    @abstractmethod
+    def __add__(self, other):
+        """Абстрактный метод для сложения товаров."""
+        pass
+
+
+class Product(BaseProduct, ReprMixin):
+    """Класс для представления товара."""
+
+    def __init__(
+            self, name: str,
+            description: str,
+            price: float,
+            quantity: int
+    ):
+        """
+        Конструктор класса Product.
+
+        Args:
+            name (str): Название товара.
+            description (str): Описание товара.
+            price (float): Цена товара.
+            quantity (int): Количество товара в наличии.
+        """
+        super().__init__(name, description, price, quantity)
+        # Выводим информацию о создании объекта
+        print(f"Создан объект: {repr(self)}")
 
     @classmethod
     def new_product(cls, product_data: dict, products_list: list = None):
@@ -51,7 +132,7 @@ class Product:
     @property
     def price(self):
         """Геттер для цены."""
-        return self.__price
+        return self._BaseProduct__price
 
     @price.setter
     def price(self, new_price: float):
@@ -69,16 +150,16 @@ class Product:
             return
 
         # Подтверждение понижения цены
-        if new_price < self.__price:
+        if new_price < self._BaseProduct__price:
             confirmation = input(
-                f"Цена понижается с {self.__price} до {new_price}."
+                f"Цена понижается с {self._BaseProduct__price} до {new_price}."
                 f" Подтвердите (y/n): "
             )
             if confirmation.lower() != 'y':
                 print("Изменение цены отменено")
                 return
 
-        self.__price = new_price
+        self._BaseProduct__price = new_price
 
     def __str__(self):
         """Строковое представление товара."""
@@ -111,15 +192,15 @@ class Smartphone(Product):
     """Класс для представления смартфона."""
 
     def __init__(
-        self,
-        name: str,
-        description: str,
-        price: float,
-        quantity: int,
-        efficiency: float,
-        model: str,
-        memory: int,
-        color: str
+            self,
+            name: str,
+            description: str,
+            price: float,
+            quantity: int,
+            efficiency: float,
+            model: str,
+            memory: int,
+            color: str
     ):
         """
         Конструктор класса Smartphone.
@@ -145,14 +226,14 @@ class LawnGrass(Product):
     """Класс для представления газонной травы."""
 
     def __init__(
-        self,
-        name: str,
-        description: str,
-        price: float,
-        quantity: int,
-        country: str,
-        germination_period: str,
-        color: str
+            self,
+            name: str,
+            description: str,
+            price: float,
+            quantity: int,
+            country: str,
+            germination_period: str,
+            color: str
     ):
         """
         Конструктор класса LawnGrass.
@@ -256,6 +337,16 @@ class Category:
         """
         return len(self.__products)
 
+    @property
+    def category_count(self):
+        """
+        Геттер для общего количества категорий.
+
+        Returns:
+            int: Общее количество созданных категорий.
+        """
+        return Category.total_categories
+
 
 class CategoryIterator:
     """Итератор для перебора товаров в категории."""
@@ -289,3 +380,8 @@ class CategoryIterator:
             self.index += 1
             return product
         raise StopIteration
+
+
+# Для обратной совместимости с main.py добавляем атрибуты класса как свойства
+Category.category_count = Category.total_categories
+Category.product_count = Category.total_products

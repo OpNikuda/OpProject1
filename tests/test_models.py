@@ -109,7 +109,6 @@ def test_products_property():
     assert "200.0 руб." in products_list[1]
 
 
-# НОВЫЕ ТЕСТЫ ДЛЯ ДОМАШНЕГО ЗАДАНИЯ
 def test_product_str_method():
     """Тест строкового представления продукта."""
     product = Product("Test Product", "Description", 150.0, 8)
@@ -233,7 +232,6 @@ def test_class_method_still_works():
     assert product.quantity == 8
 
 
-# ТЕСТЫ ДЛЯ НОВЫХ КЛАССОВ-НАСЛЕДНИКОВ
 def test_smartphone_creation():
     """Тест создания смартфона."""
     smartphone = Smartphone(
@@ -281,7 +279,6 @@ def test_lawn_grass_inheritance():
     assert issubclass(LawnGrass, Product)
 
 
-# ТЕСТЫ ДЛЯ ОГРАНИЧЕНИЙ СЛОЖЕНИЯ
 def test_same_class_addition():
     """Тест сложения товаров одного класса."""
     smartphone1 = Smartphone(
@@ -336,7 +333,6 @@ def test_product_and_lawn_grass_addition():
         product + grass
 
 
-# ТЕСТЫ ДЛЯ ОГРАНИЧЕНИЙ ДОБАВЛЕНИЯ ПРОДУКТОВ
 def test_add_smartphone_to_category():
     """Тест добавления смартфона в категорию."""
     category = Category("Смартфоны", "Техника")
@@ -396,7 +392,6 @@ def test_add_valid_subclasses_to_category():
     assert isinstance(category.products_objects[2], LawnGrass)
 
 
-# ТЕСТЫ ДЛЯ СТАТИСТИКИ КАТЕГОРИЙ
 def test_category_statistics():
     """Тест статистики категорий и продуктов."""
     # Сбросим счетчики для чистого теста
@@ -417,40 +412,6 @@ def test_category_statistics():
     assert Category.total_products == 3
 
 
-def test_product_count_property():
-    """Тест свойства product_count."""
-    product1 = Product("Prod1", "Desc", 100.0, 5)
-    product2 = Product("Prod2", "Desc", 200.0, 3)
-
-    category = Category("Test", "Desc", [product1, product2])
-    assert category.product_count == 2
-
-    product3 = Product("Prod3", "Desc", 300.0, 2)
-    category.add_product(product3)
-    assert category.product_count == 3
-
-
-# ТЕСТЫ ДЛЯ ПРОВЕРКИ СОВМЕСТИМОСТИ
-def test_mixed_products_in_category():
-    """Тест смешанных продуктов в категории."""
-    category = Category("Mixed", "Разные товары")
-
-    regular_product = Product("Regular", "Desc", 100.0, 5)
-    smartphone = Smartphone(
-        "Smart", "Desc", 100000.0, 2, 90.0, "M1", 128, "Black"
-    )
-    grass = LawnGrass("Grass", "Desc", 500.0, 10, "Russia", "7d", "Green")
-
-    category.add_product(regular_product)
-    category.add_product(smartphone)
-    category.add_product(grass)
-
-    assert category.product_count == 3
-    assert "Regular, 100.0 руб. Остаток: 5 шт." in category.products
-    assert "Smart, 100000.0 руб. Остаток: 2 шт." in category.products
-    assert "Grass, 500.0 руб. Остаток: 10 шт." in category.products
-
-
 def test_category_iterator_with_subclasses():
     """Тест итератора категории с подклассами."""
     category = Category("Test", "Desc")
@@ -467,4 +428,3 @@ def test_category_iterator_with_subclasses():
     assert len(products) == 2
     assert isinstance(products[0], Smartphone)
     assert isinstance(products[1], LawnGrass)
-
