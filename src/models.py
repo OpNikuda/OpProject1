@@ -289,4 +289,3 @@ class CategoryIterator:
             self.index += 1
             return product
         raise StopIteration
-
